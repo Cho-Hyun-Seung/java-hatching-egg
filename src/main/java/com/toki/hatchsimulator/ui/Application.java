@@ -36,6 +36,10 @@ public class Application {
         user = userController.loginUser();
     }
 
+    private void sortChickenCoop(){
+        chickenCoopController.sortChickenCoop(chickenCoop);
+    }
+
     private void nextDay() {
         chickenCoopController.nextDay(chickenCoop);
     }
@@ -43,25 +47,19 @@ public class Application {
     private void playGame() {
         while(true) {
             System.out.println("===== 닭장 : " + chickenCoop.getDay() + "일차 ======");
-            System.out.print("상태\t:\t");
+
+            System.out.printf("%-10s %-10s %-10s %-10s\n","번호", "상태", "경과", "가격");
+            System.out.println("-----------------------------------------");
+
             for (ChickenFamily cf : chickenCoop.getChickenFamily()) {
-                System.out.print(cf.getName() + "\t");
-            }
-            System.out.println();
-            System.out.print("경과\t:\t");
-            for (ChickenFamily cf : chickenCoop.getChickenFamily()) {
-                System.out.print(cf.getLived() + "\t");
-            }
-            System.out.println();
-            System.out.print("가격\t:\t");
-            for (ChickenFamily cf : chickenCoop.getChickenFamily()) {
-                System.out.print(cf.getPrice() + "\t");
+                System.out.printf("%-10d %-10s %-10d %-10d\n",chickenCoop.getChickenFamily().indexOf(cf), cf.getEmoji(), cf.getLived(), cf.getPrice());
             }
             System.out.println();
             System.out.println("===== 행동 =====");
             System.out.println("1. 다음 날로");
             System.out.println("2. 판매");
-            System.out.println("3. 종료");
+            System.out.println("3. 정렬하기");
+            System.out.println("0. 종료");
             System.out.print("=> ");
             try {
                 int userInput = scanner.nextInt();
@@ -73,6 +71,10 @@ public class Application {
                         // 판매 메뉴로 이동
                         break;
                     case 3:
+                        sortChickenCoop();
+                        break;
+                        // 정렬하기
+                    case 0:
                         // 종료
                         System.out.println("종료 합니다.");
                         chickenCoop = null;
@@ -90,7 +92,7 @@ public class Application {
 
     private void startGame() {
         // 1. 닭장 생성
-        chickenCoop = chickenCoopController.createChickenCoop(chickenCoop);
+        chickenCoop = chickenCoopController.createChickenCoop();
         System.out.println("\n닭장이 생성되었습니다!");
         playGame();
 
@@ -107,7 +109,7 @@ public class Application {
             System.out.println("로그인 유저 : " + user.getId());
             System.out.println("1. 게임 시작");
             System.out.println("2. 회원 탈퇴");
-            System.out.println("3. 로그아웃");
+            System.out.println("0. 로그아웃");
             System.out.print("=> ");
             try {
                 int userInput = scanner.nextInt();
@@ -123,7 +125,7 @@ public class Application {
                         // 회원 가입 화면으로 이동
                         deleteUser(user);
                         break;
-                    case 3:
+                    case 0:
                         // 로그아웃
                         System.out.println("로그아웃 합니다.");
                         user = null;

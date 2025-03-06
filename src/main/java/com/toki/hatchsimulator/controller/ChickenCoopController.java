@@ -4,8 +4,6 @@ import com.toki.hatchsimulator.domain.ChickenCoop;
 import com.toki.hatchsimulator.domain.ChickenFamily;
 import com.toki.hatchsimulator.service.ChickenCoopService;
 
-import java.util.List;
-
 public class ChickenCoopController {
     private final ChickenCoopService chickenCoopService;
 
@@ -14,8 +12,8 @@ public class ChickenCoopController {
     }
 
     // 닭장 생성
-    public ChickenCoop createChickenCoop(ChickenCoop chickenCoop){
-        return chickenCoopService.createChickenCoop(chickenCoop);
+    public ChickenCoop createChickenCoop(){
+        return chickenCoopService.createChickenCoop();
     }
 
     //TODO 1. 다음 날로 이동
@@ -26,5 +24,9 @@ public class ChickenCoopController {
     // TODO 5. 판매
     public void sell(ChickenFamily target){
 
+    }
+
+    public void sortChickenCoop(ChickenCoop chickenCoop) {
+        chickenCoopService.sortChickenCoop(chickenCoop);
     }
 }

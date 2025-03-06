@@ -1,5 +1,6 @@
 package com.toki.hatchsimulator.domain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,35 +19,47 @@ public class ChickenCoop {
         return familyList;
     }
 
-//    public void setChickenCoop(List<ChickenFamily> familyList) {
-//        this.familyList = familyList;
-//    }
+    public void sortChickenCoop() {
+        familyList.sort((a, b) -> {
+            if (a.getName().compareTo(b.getName()) == 0) {
+                return b.getLived() - a.getLived();
+            }
+            return a.getName().compareTo(b.getName());
+        });
+    }
 
-    // TODO 부화 조건 ChickenCoop에 적어주기!!!!!
     public void changeForm() {
+        List<ChickenFamily> newFamilyList = new ArrayList<>();
+        int hatchCount = 0;
+        int raiseCount = 0;
+        int dieCount = 0;
+        int layCount = 0;
         Iterator<ChickenFamily> iterator = familyList.iterator();
         while (iterator.hasNext()) {
             ChickenFamily cf = iterator.next();
-            System.out.println("알인 가요?" + cf.isEgg());
             if (cf.isEgg() && cf.getLived() >= HACHING_DAY) {
-                System.out.println("알이 부화하였습니다!");
+                hatchCount++;
                 iterator.remove();
-                ChickenFamily chick = new Chick();
-                familyList.add(chick);
+                newFamilyList.add(new Chick());
             } else if (cf.isChick() && cf.getLived() >= RAISING_DAY) {
-                System.out.println("병아리가 닭이 되었습니다!");
+                raiseCount++;
                 iterator.remove();
-                ChickenFamily chicken = new Chicken();
-                familyList.add(chicken);
-            } else if (cf.isChicken() && cf.getLived() >= DIEING_DAY) {
-                System.out.println("닭이 죽었습니다..");
-                iterator.remove();
-            } else if (cf.isChicken() && cf.getLived() % 3 == 0) {
-                System.out.println("닭이 알을 낳았습니다!");
-                ChickenFamily egg = new Egg();
-                familyList.add(egg);
+                newFamilyList.add(new Chicken());
+            } else if (cf.isChicken()) {
+                if (cf.getLived() >= DIEING_DAY) {
+                    dieCount++;
+                    iterator.remove();
+                } else if (cf.getLived() % 3 == 0) {
+                    layCount++;
+                    newFamilyList.add(new Egg());
+                }
             }
         }
+        familyList.addAll(newFamilyList);
+        if(hatchCount > 0 ) System.out.println(hatchCount + "개의 알이 부화하였습니다!");
+        if(raiseCount > 0 ) System.out.println(raiseCount + "마리의 병아리가 닭이 되었습니다!");
+        if(dieCount > 0 ) System.out.println(dieCount + "마리의 닭이 죽었습니다..");
+        if(layCount > 0 ) System.out.println("닭이 " + layCount + "개의 알을 낳았습니다!");
     }
 
 

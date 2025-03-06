@@ -3,7 +3,11 @@ package com.toki.hatchsimulator.domain;
 public class Chicken extends ChickenFamily {
 
     public Chicken() {
-        super(ChickenFamilyEnum.Chicken.getName(), 15, 1);
+        super(ChickenFamilyEnum.Chicken.getName(),
+                ChickenFamilyEnum.Chicken.getEmoji(),
+                15,
+                1
+        );
     }
 
     @Override

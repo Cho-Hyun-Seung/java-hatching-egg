@@ -2,11 +2,13 @@ package com.toki.hatchsimulator.domain;
 
 public abstract class ChickenFamily {
     private final String name;
+    private final String emoji;
     private int price;
     private int lived;
 
-    public ChickenFamily(String name, int price, int lived) {
+    public ChickenFamily(String name, String emoji, int price, int lived) {
         this.name = name;
+        this.emoji = emoji;
         this.price = price;
         this.lived = lived;
     }
@@ -35,4 +37,7 @@ public abstract class ChickenFamily {
     public abstract boolean isChick();
     public abstract boolean isChicken();
 
+    public String getEmoji() {
+        return emoji;
+    }
 }
