@@ -1,4 +1,4 @@
 package com.toki.hatchsimulator.repository;
 
-public class UserRepositoryImpl {
+public class UserRepositoryImpl implements UserRepository{
 }
