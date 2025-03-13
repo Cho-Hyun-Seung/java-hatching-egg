@@ -1,4 +1,4 @@
-package com.toki.hatchsimulator.ui;
+package com.toki.hatchsimulator;
 
 
 public class Application {
