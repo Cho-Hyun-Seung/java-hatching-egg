@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment/>
+    <entry key="selectUser">
+        SELECT
+            user_id,
+            password
+        FROM
+            users
+        WHERE
+            user_id = ?
+        AND
+            password = ?
+    </entry>
+</properties>
